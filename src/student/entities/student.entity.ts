@@ -12,7 +12,7 @@ export class Student {
     ten: string;
 
     @Column('date')
-    ngay_sinh: string;
+    ngay_sinh?: string;
 
     @OneToMany(() => StudentTrainingProgram, (studentTrainingProgram) => studentTrainingProgram.hoc_vien)
     hoc_vien_chuong_trinh: StudentTrainingProgram[];

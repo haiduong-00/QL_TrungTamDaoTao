@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ClassSessionService } from './class-session.service';
 import { CreateClassSessionDto } from './dto/create-class-session.dto';
 import { UpdateClassSessionDto } from './dto/update-class-session.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('class-session')
 @Controller('class-session')
 export class ClassSessionController {
   constructor(private readonly classSessionService: ClassSessionService) {}

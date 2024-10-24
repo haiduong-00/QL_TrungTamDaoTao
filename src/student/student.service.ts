@@ -95,7 +95,7 @@ export class StudentService {
 
     for (const studentProgram of students) {
       const student = studentProgram.hoc_vien;
-      let isComplete = true;
+      let incompleteSubjects = [];
 
       for (const subject of subjects) {
         const studentSubject = await this.studentSubjectRepository.findOne({
@@ -103,13 +103,19 @@ export class StudentService {
         });
 
         if (!studentSubject || studentSubject.diem < this.passScore) {
-          isComplete = false;
-          break;
+          incompleteSubjects.push({
+            subjectId: subject.id,
+            subjectTen: subject.ten,
+            subjectDiem: studentSubject.diem,
+          })
         }
       }
-
-      if (isComplete === false) {
-        incompleteStudents.push(student);
+      if (incompleteSubjects.length > 0) {
+        incompleteStudents.push({
+          studentId: student.id,
+          studentName: student.ten,
+          incompleteSubjects: incompleteSubjects,
+        });
       }
     }
     return incompleteStudents;

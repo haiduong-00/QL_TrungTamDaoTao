@@ -1,6 +1,8 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { SalaryService } from './salary.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('salary')
 @Controller('salary')
 export class SalaryController {
   constructor(private readonly salaryService: SalaryService) { }
