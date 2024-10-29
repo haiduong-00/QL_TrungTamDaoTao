@@ -7,9 +7,9 @@ import { ApiTags } from '@nestjs/swagger';
 export class SalaryController {
   constructor(private readonly salaryService: SalaryService) { }
 
-  @Get(':employeeId')
-  async getSalary(@Param('employeeId', ParseIntPipe) employeeId: number) {
-    const luong = await this.salaryService.calculateSalary(employeeId);
+  @Get()
+  async getSalary() {
+    const luong = await this.salaryService.tinhLuongGiangVienSQL();
     return { luonggiangvien: luong };
   }
 
@@ -17,5 +17,11 @@ export class SalaryController {
   async calculateEmployeeSalary(@Param('employeeId', ParseIntPipe) employeeId: number) {
     const luong = await this.salaryService.calculateEmployeeSalary(employeeId);
     return { luongnhanvien: luong };
+  }
+
+  @Get('salaryEmployee')
+  async calculateEmployeeSalarySQL() {
+    const luong = await this.salaryService.tinhLuongNhanVienSQL();
+    return { luongNhanVien: luong }
   }
 }

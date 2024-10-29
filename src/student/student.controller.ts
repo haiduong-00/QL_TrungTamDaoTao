@@ -1,13 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Res } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 
 @ApiTags('student')
 @Controller('student')
 export class StudentController {
-  constructor(private readonly studentService: StudentService) {}
+  constructor(private readonly studentService: StudentService) { }
 
   @Get(':studentId/program/:programId')
   async getStudentResultsInTranningProgram(
@@ -27,9 +28,12 @@ export class StudentController {
     return result;
   }
 
-  @Post()
-  create(@Body() createStudentDto: CreateStudentDto) {
-    return this.studentService.create(createStudentDto);
+  // API lấy thông tin tiến độ học tập của từng học viên
+  @Get(':studentId/progress')
+  async getStudentProgress(
+    @Param('studentId', ParseIntPipe) studentId: number
+  ) {
+    return await this.studentService.getStudentProgress(studentId);
   }
 
   @Get()

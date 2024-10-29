@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStudentTrainingProgramDto } from './dto/create-student-training-program.dto';
 import { UpdateStudentTrainingProgramDto } from './dto/update-student-training-program.dto';
+import { StudentTrainingProgram } from './entities/student-training-program.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MoreThanOrEqual, Repository } from 'typeorm';
+import { StudentSubject } from '../student-subject/entities/student-subject.entity';
+import { Subject } from '../subject/entities/subject.entity';
 
 @Injectable()
 export class StudentTrainingProgramService {

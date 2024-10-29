@@ -1,14 +1,15 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { TrainingProgram } from "../../training-program/entities/training-program.entity";
 import { ClassSession } from "../../class-session/entities/class-session.entity";
 import { StudentSubject } from "../../student-subject/entities/student-subject.entity";
 
-@Entity('mon-hoc')
+@Entity('mon_hoc')
+@Unique(['ten', 'chuong_trinh_dao_tao']) // Đảm bảo tên môn học là duy nhất trong cùng một chương trình
 export class Subject {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true })
     ten: string;
 
     @Column('int')
